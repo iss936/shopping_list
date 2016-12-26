@@ -90,7 +90,10 @@ public class HttpRequest extends AsyncTask<String, Integer, String> {
         if (code.equals("0")) {
             delegate.onSuccess(mainObject);
         }else{
-            delegate.onFailure("Une erreur est survenue");
+            if (code.equals("2"))
+                delegate.onFailure("Ce mail est déjà utilisé");
+            else
+                delegate.onFailure("Une erreur est survenue");
         }
     }
 

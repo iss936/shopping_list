@@ -67,7 +67,7 @@ public class SignUpActivity extends AppCompatActivity implements IHttpRequestLis
                     password.setError("Veuillez saisir 2 mot de passe identiques");
                     rePassword.setError("Veuillez saisir 2 mot de passe identiques");
                 }
-                Toast.makeText(getApplicationContext(),name.getText().toString(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(),name.getText().toString(), Toast.LENGTH_LONG).show();
 
                 if (ok == true) {
                     request.delegate = SignUpActivity.this;

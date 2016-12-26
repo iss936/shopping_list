@@ -13,9 +13,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Inscription"
+        android:id="@+id/btnLinkSignUp"
+        android:layout_marginBottom="164dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Connexion"
         android:id="@+id/btnLinkSignIn"
-        android:layout_marginTop="63dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextLoginEmail"
+        android:hint = "Saisir votre email"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextLoginPassword"
+        android:hint="Saisir votre mot de passe"
+        android:layout_marginTop="42dp"
+        android:layout_below="@+id/editTextLoginEmail"
+        android:layout_alignLeft="@+id/editTextLoginEmail"
+        android:layout_alignStart="@+id/editTextLoginEmail" />
 </RelativeLayout>

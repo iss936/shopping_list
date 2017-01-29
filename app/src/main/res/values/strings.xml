@@ -1,3 +1,19 @@
 <resources>
-    <string name="app_name">ShoppingList</string>
+    <string name="app_name">Shopping List</string>
+    <string name="sign_in">Connexion</string>
+    <string name="sign_up">Inscription</string>
+    <string name="logout">Déconnexion</string>
+
+    <string name="hint_last_name">Nom</string>
+    <string name="hint_first_name">Prénom</string>
+    <string name="hint_email">Saisissez votre email</string>
+    <string name="hint_password">Saisissez votre mot de passe</string>
+    <string name="hint_confirm_password">Confirmez le mot de passe</string>
+
+    <string name="button_validate">Valider</string>
+
+    <string name="success_login">Vous êtes connecté</string>
+
+    <string name="error_email">Veuillez saisir une adresse mail</string>
+    <string name="error_password">Veuillez saisir un mot de passe</string>
 </resources>

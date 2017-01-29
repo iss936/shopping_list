@@ -80,20 +80,25 @@ public class HttpRequest extends AsyncTask<String, Integer, String> {
         JSONObject mainObject = null;
         try {
             mainObject = new JSONObject(result);
-           // String code = mainObject.getJsonString("code");
+            // String code = mainObject.getJsonString("code");
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
         String code = mainObject.optString("code");
+        Log.d("debug print", code);
 
-        if (code.equals("0")) {
+        if(code.equals("0")) {
             delegate.onSuccess(mainObject);
-        }else{
-            if (code.equals("2"))
-                delegate.onFailure("Ce mail est déjà utilisé");
-            else
-                delegate.onFailure("Une erreur est survenue");
+        }
+        else if(code.equals("2")) {
+            delegate.onFailure("Cette adresse mail est déjà utilisée");
+        }
+        else if(code.equals("3")) {
+            delegate.onFailure("Email ou mot de passe incorrect");
+        }
+        else {
+            delegate.onFailure("Une erreur est survenue");
         }
     }
 

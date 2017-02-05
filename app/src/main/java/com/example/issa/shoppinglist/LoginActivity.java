@@ -1,12 +1,10 @@
 package com.example.issa.shoppinglist;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -76,11 +74,15 @@ public class LoginActivity extends Activity implements IHttpRequestListener {
             e.printStackTrace();
         }
 
-        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("token", token).commit();
 
-        Intent i = new Intent(LoginActivity.this, IndexActivity.class);
+        SharedPreferences myPrefs = getSharedPreferences("preferences", MODE_PRIVATE);
+        SharedPreferences.Editor prefsEditor;
+        prefsEditor = myPrefs.edit();
+        prefsEditor.putString("token", token);
+        prefsEditor.commit();
+
+
+        Intent i = new Intent(LoginActivity.this, ShoppingList.class);
         startActivity(i);
     }
 

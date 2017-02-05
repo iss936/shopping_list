@@ -7,13 +7,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -83,32 +80,52 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
                         R.layout.list_item,entetes, new int[]{R.id.name,
                         R.id.created_date,R.id.id, R.id.completed});
 
-        //ProductAdapter adapter = new ProductAdapter(ShoppingList.this, products);
         mListView.setAdapter(adapter);
-    }
 
+
+    }
+    private class DeleteService implements IHttpRequestListener{
+
+        void execute(String id){
+            String test = "http://appspaces.fr/esgi/shopping_list/shopping_list/remove.php?token="+token+"&id="+id;
+            Log.d("requete",test);
+            HttpRequest request = new HttpRequest();
+            request.delegate = ShoppingList.this;
+            request.execute(test);
+
+        }
+
+        public void onSuccess(JSONObject j) {
+        Toast.makeText(getApplicationContext(), "liste Supprimée", Toast.LENGTH_LONG).show();
+        }
+        @Override
+        public void onFailure(String msg) {
+            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+        }
+
+
+    }
     private void listenListoflist(){
 
-        // Item Click Listener for the listview
-        OnItemClickListener itemClickListener = new OnItemClickListener() {
+        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
             @Override
-            public void onItemClick(AdapterView<?> parent, View container, int position, long id) {
-                // Getting the Container Layout of the ListView
-                LinearLayout linearLayoutParent = (LinearLayout) container;
+            public boolean onItemLongClick(AdapterView<?> parent, View view,
+                                           int position, long arg3) {
 
-                // Getting the inner Linear Layout
-                LinearLayout linearLayoutChild = (LinearLayout ) linearLayoutParent.getChildAt(1);
 
-                // Getting the Country TextView
-                TextView tvCountry = (TextView) linearLayoutChild.getChildAt(0);
+                HashMap<String,String> item = (HashMap<String, String>) parent.getAdapter().getItem(position);
+                ListesdeCourses.remove(item);
+                new DeleteService().execute(item.get("id"));
+                afficherListoflist();
 
-                Toast.makeText(getBaseContext(), tvCountry.getText().toString(), Toast.LENGTH_SHORT).show();
+                return false;
             }
-        };
+
+        });
     }
     @Override
     public void onSuccess(JSONObject j) {
-        Toast.makeText(getApplicationContext(), "chargement effectué", Toast.LENGTH_LONG).show();
 
         try {
             JSONArray resultObject = j.getJSONArray("result");
@@ -133,19 +150,9 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
 
         }catch(final JSONException e) {
             Log.e("PPG PARSER" , "Json parsing error: " + e.getMessage());
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(getApplicationContext(),
-                            "Json parsing error: " + e.getMessage(),
-                            Toast.LENGTH_LONG)
-                            .show();
-                }
-            });
-
         }
         afficherListoflist();
-
+        listenListoflist();
     }
 
 

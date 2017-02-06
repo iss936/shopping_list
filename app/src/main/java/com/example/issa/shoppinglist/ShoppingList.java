@@ -1,6 +1,8 @@
 package com.example.issa.shoppinglist;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -108,16 +110,57 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
     private void listenListoflist(){
 
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-
+            HashMap<String,String> item;
+            String id_list;
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view,
                                            int position, long arg3) {
 
+                item = (HashMap<String, String>) parent.getAdapter().getItem(position);
+                id_list=(item.get("id"));
 
-                HashMap<String,String> item = (HashMap<String, String>) parent.getAdapter().getItem(position);
-                ListesdeCourses.remove(item);
-                new DeleteService().execute(item.get("id"));
-                afficherListoflist();
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        ShoppingList.this );
+
+                // set title
+                alertDialogBuilder.setTitle("Menu");
+
+                // set dialog message
+                alertDialogBuilder
+                        .setMessage("Voulez vous modifier ou supprimer la liste ?")
+                        .setCancelable(false)
+                        .setPositiveButton("Modifier",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+
+
+                                // ajout de l'id en SharedPreferences pour les Traitements
+                                SharedPreferences myPrefs = getSharedPreferences("preferences", MODE_PRIVATE);
+                                SharedPreferences.Editor prefsEditor;
+                                prefsEditor = myPrefs.edit();
+                                prefsEditor.putString("id_list_edit", id_list);
+                                prefsEditor.commit();
+
+
+                                Intent i = new Intent(ShoppingList.this, EditList.class);
+                                startActivity(i);
+
+                            }
+                        })
+                        .setNegativeButton("Supprimer",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id1) {
+
+                                new DeleteService().execute(id_list);
+                                ListesdeCourses.remove(item);
+                                dialog.cancel();
+                            }
+                        });
+
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // show it
+                alertDialog.show();
+
 
                 return false;
             }

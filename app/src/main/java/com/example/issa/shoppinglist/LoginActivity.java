@@ -74,7 +74,7 @@ public class LoginActivity extends Activity implements IHttpRequestListener {
             e.printStackTrace();
         }
 
-
+        // ajout du Token en SharedPreferences pour les Traitements
         SharedPreferences myPrefs = getSharedPreferences("preferences", MODE_PRIVATE);
         SharedPreferences.Editor prefsEditor;
         prefsEditor = myPrefs.edit();

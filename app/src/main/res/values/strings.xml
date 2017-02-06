@@ -3,6 +3,7 @@
     <string name="sign_in">Connexion</string>
     <string name="sign_up">Inscription</string>
     <string name="add_list">Création de liste</string>
+    <string name="rename_list">Renommer la liste</string>
     <string name="add_product">Création de produit</string>
     <string name="logout">Déconnexion</string>
 

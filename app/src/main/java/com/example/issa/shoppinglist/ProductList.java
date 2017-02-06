@@ -25,29 +25,30 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Steve on 04/02/2017.
+ * Created by Steve on 06/02/2017.
  */
 
-public class ShoppingList extends Activity implements IHttpRequestListener {
+public class ProductList extends Activity implements IHttpRequestListener {
 
     ListView mListView;
-    ArrayList<HashMap<String, String>> ListesdeCourses;
-    String[] entetes = new String[]{"name", "created_date", "id", "completed"};
+    ArrayList<HashMap<String, String>> ListesdeProduits;
+    String[] entetes = new String[]{"name", "quantity", "id", "price"};
     String token;
+    String shopping_list_id;
 
     private class DeleteService implements IHttpRequestListener {
 
         void execute(String id) {
-            String test = "http://appspaces.fr/esgi/shopping_list/shopping_list/remove.php?token=" + token + "&id=" + id;
+            String test = "http://appspaces.fr/esgi/shopping_list/product/remove.php?token=" + token + "&id=" + id;
             Log.d("requete", test);
             HttpRequest request = new HttpRequest();
-            request.delegate = ShoppingList.this;
+            request.delegate = ProductList.this;
             request.execute(test);
 
         }
 
         public void onSuccess(JSONObject j) {
-            Toast.makeText(getApplicationContext(), "liste Supprimée", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Produit Supprimée", Toast.LENGTH_LONG).show();
         }
 
         @Override
@@ -61,22 +62,23 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_product);
 
         //recuperation du token en sharedpreferences file
         SharedPreferences sharedPreferences = getSharedPreferences("preferences", MODE_PRIVATE);
         token = sharedPreferences.getString("token", "");
+        shopping_list_id = sharedPreferences.getString("id_list_edit","");
 
 
-        ListesdeCourses = new ArrayList<>();
+        ListesdeProduits = new ArrayList<>();
         mListView = (ListView) findViewById(R.id.list);
 
 
-        String test = "http://appspaces.fr/esgi/shopping_list/shopping_list/list.php?token=" + token;
+        String test = "http://appspaces.fr/esgi/shopping_list/product/list.php?token=" + token+"&shopping_list_id="+shopping_list_id;
         Log.d("requete", test);
         Log.d("token", "test" + token);
         HttpRequest request = new HttpRequest();
-        request.delegate = ShoppingList.this;
+        request.delegate = ProductList.this;
         request.execute(test);
 
 
@@ -84,11 +86,9 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
 
         btn_add.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent i = new Intent(ShoppingList.this, AddList.class);
+                Intent i = new Intent(ProductList.this, AddList.class);
                 startActivity(i);
-
             }
-
         });
 
 
@@ -98,7 +98,7 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
     private void afficherListoflist() {
 
         ListAdapter adapter;
-        adapter = new SimpleAdapter(ShoppingList.this, (List<? extends Map<String, ?>>) ListesdeCourses,
+        adapter = new SimpleAdapter(ProductList.this, (List<? extends Map<String, ?>>) ListesdeProduits,
                 R.layout.list_item, entetes, new int[]{R.id.name,
                 R.id.created_date, R.id.id, R.id.completed});
 
@@ -106,32 +106,6 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
     }
 
     private void listenListoflist() {
-
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            HashMap<String, String> item;
-            String id_list;
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-
-                item = (HashMap<String, String>) parent.getAdapter().getItem(position);
-                id_list = (item.get("id"));
-
-                // ajout de l'id en SharedPreferences pour les Traitements
-                SharedPreferences myPrefs = getSharedPreferences("preferences", MODE_PRIVATE);
-                SharedPreferences.Editor prefsEditor;
-                prefsEditor = myPrefs.edit();
-                prefsEditor.putString("id_list_edit", id_list);
-                prefsEditor.commit();
-
-                Intent i = new Intent(ShoppingList.this, ProductList.class);
-                startActivity(i);
-
-            }
-
-        });
-
 
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             HashMap<String, String> item;
@@ -145,7 +119,7 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
                 id_list = (item.get("id"));
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                        ShoppingList.this);
+                        ProductList.this);
 
                 // set title
                 alertDialogBuilder.setTitle("Menu");
@@ -165,7 +139,7 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
                                 prefsEditor.putString("id_list_edit", id_list);
                                 prefsEditor.commit();
 
-                                Intent i = new Intent(ShoppingList.this, EditList.class);
+                                Intent i = new Intent(ProductList.this, EditList.class);
                                 startActivity(i);
 
                             }
@@ -173,13 +147,8 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
                         .setNegativeButton("Supprimer", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id1) {
 
-                                new DeleteService().execute(id_list);
-                                ListesdeCourses.remove(item);
-                                dialog.cancel();
-                            }
-                        })
-                        .setNeutralButton("Annuler", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id1) {
+                                new ProductList.DeleteService().execute(id_list);
+                                ListesdeProduits.remove(item);
                                 dialog.cancel();
                             }
                         });
@@ -217,7 +186,7 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
                 liste.put("created_date", created_date);
                 liste.put("completed", completed);
 
-                ListesdeCourses.add(liste);
+                ListesdeProduits.add(liste);
             }
 
         } catch (final JSONException e) {

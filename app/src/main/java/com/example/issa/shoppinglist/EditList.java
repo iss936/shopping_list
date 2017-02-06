@@ -13,7 +13,7 @@ import android.widget.Toast;
 import org.json.JSONObject;
 
 /**
- * Created by Philippe on 05/02/2017.
+ * Created by Steve on 05/02/2017.
  */
 
 public class EditList extends Activity implements IHttpRequestListener {

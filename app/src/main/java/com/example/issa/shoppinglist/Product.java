@@ -1,43 +1,43 @@
 package com.example.issa.shoppinglist;
 
 /**
- * Created by Philippe on 04/02/2017.
+ * Created by Steve on 04/02/2017.
  */
 
 public class Product {
-    private int quantity;
+
     private String name;
-    private String text;
+    private int quantity;
+    private double price;
 
 
-    public Product(int quantity, String name, String text) {
-        this.quantity = quantity;
+    public Product(String name, int quantity, double price) {
         this.name = name;
-        this.text = text;
-    }
-
-    public int getquantity() {
-        return quantity;
-    }
-
-    public void setquantity(int quantity) {
         this.quantity = quantity;
+        this.price = price;
     }
 
-    public String getname() {
+    public String getName() {
         return name;
     }
 
-    public void setname(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getText() {
-        return text;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
 }

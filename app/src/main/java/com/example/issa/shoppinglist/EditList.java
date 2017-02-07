@@ -42,7 +42,7 @@ public class EditList extends Activity implements IHttpRequestListener {
 
         // On envoi le nom de la liste en front
         TextView front_list_name = (TextView)findViewById(R.id.name);
-
+        front_list_name.requestFocus();
         front_list_name.setText(name_list);
 
         if(complete_list == getString(R.string.complete_list)) {
@@ -73,12 +73,13 @@ public class EditList extends Activity implements IHttpRequestListener {
                 } else {
                     HttpRequest request = new HttpRequest();
                     request.delegate = EditList.this;
+                    String encoded_name = "";
                     try {
-                        name = URLEncoder.encode(name, "utf-8");
+                        encoded_name = URLEncoder.encode(name, "utf-8");
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
-                    request.execute("http://appspaces.fr/esgi/shopping_list/shopping_list/edit.php?token="+token+"&id="+id_list+"&name="+name+"&completed="+complete);
+                    request.execute("http://appspaces.fr/esgi/shopping_list/shopping_list/edit.php?token="+token+"&id="+id_list+"&name="+encoded_name+"&completed="+complete);
                 }
             }
         });

@@ -1,14 +1,18 @@
 package com.example.issa.shoppinglist;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONObject;
@@ -33,6 +37,8 @@ public class AddList extends Activity implements IHttpRequestListener {
         SharedPreferences sharedPreferences = getSharedPreferences("preferences", MODE_PRIVATE);
         token = sharedPreferences.getString("token", "");
 
+        TextView front_list_name = (TextView)findViewById(R.id.name);
+
         Button btn_add = (Button) findViewById(R.id.btn_add);
 
         btn_add.setOnClickListener(new View.OnClickListener() {
@@ -55,12 +61,13 @@ public class AddList extends Activity implements IHttpRequestListener {
             else {
                 HttpRequest request = new HttpRequest();
                 request.delegate = AddList.this;
+                String encoded_name = "";
                 try {
-                    name = java.net.URLEncoder.encode(name, "utf-8");
+                    encoded_name = java.net.URLEncoder.encode(name, "utf-8");
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
-                request.execute("http://appspaces.fr/esgi/shopping_list/shopping_list/create.php?token="+token+"&name="+name+"&completed="+complete);
+                request.execute("http://appspaces.fr/esgi/shopping_list/shopping_list/create.php?token="+token+"&name="+encoded_name+"&completed="+complete);
             }
             }
         });

@@ -21,6 +21,7 @@ import java.net.URL;
 
 /**
  * Created by Issa on 02/12/2016.
+ * Debug by Philippe on 07/02/2017.
  */
 public class HttpRequest extends AsyncTask<String, Integer, String> {
 
@@ -33,12 +34,7 @@ public class HttpRequest extends AsyncTask<String, Integer, String> {
         try {
             URL url = new URL(params[0]);
 
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setReadTimeout(10000 /* milliseconds */);
-            conn.setConnectTimeout(15000 /* milliseconds */);
-            conn.setRequestMethod("GET");
-            conn.setDoInput(true);
-            conn.connect();
+
 
             BufferedReader br=new BufferedReader(new InputStreamReader(url.openStream()));
 
@@ -53,11 +49,6 @@ public class HttpRequest extends AsyncTask<String, Integer, String> {
 
             jsonString = sb.toString();
 
-            int response = conn.getResponseCode();
-            Log.d("debugReponse=", "The response is: " + response);
-            InputStream is = conn.getInputStream();
-            is.close();
-            conn.disconnect();
             msg = jsonString;
         } catch (IOException e) {
             e.printStackTrace();

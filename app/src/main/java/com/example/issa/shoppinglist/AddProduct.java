@@ -45,7 +45,7 @@ public class AddProduct extends Activity implements IHttpRequestListener {
         Button btn_add = (Button) findViewById(R.id.btn_add);
 
         btn_add.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+                public void onClick(View v) {
 
                 name = name_wrapper.getEditText().getText().toString();
                 quantity = Integer.toString(front_list_quantity.getValue());

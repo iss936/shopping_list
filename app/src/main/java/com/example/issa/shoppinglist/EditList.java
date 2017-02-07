@@ -45,13 +45,12 @@ public class EditList extends Activity implements IHttpRequestListener {
 
         final TextInputLayout name_wrapper = (TextInputLayout) findViewById(R.id.name_wrapper);
 
-        Button btn_save = (Button) findViewById(R.id.btn_save);
+        Button btn_save = (Button) findViewById(R.id.btn_rename);
 
         btn_save.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
                 name = name_wrapper.getEditText().getText().toString();
-
 
                 if (name.length() < 2) {
                     name_wrapper.setError("Veuillez saisir un prénom contenant au moins 2 lettres");

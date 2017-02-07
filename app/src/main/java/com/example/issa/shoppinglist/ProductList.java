@@ -119,6 +119,7 @@ public class ProductList extends Activity implements IHttpRequestListener {
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             HashMap<String, String> item;
             String id_product_edit;
+            String product_name;
 
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view,
@@ -126,6 +127,7 @@ public class ProductList extends Activity implements IHttpRequestListener {
 
                 item = (HashMap<String, String>) parent.getAdapter().getItem(position);
                 id_product_edit = (item.get("id"));
+                product_name = (item.get("name"));
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                         ProductList.this);
@@ -145,9 +147,10 @@ public class ProductList extends Activity implements IHttpRequestListener {
                                 SharedPreferences.Editor prefsEditor;
                                 prefsEditor = myPrefs.edit();
                                 prefsEditor.putString("id_product_edit", id_product_edit);
+                                prefsEditor.putString("product_name", product_name);
                                 prefsEditor.commit();
 
-                                Intent i = new Intent(ProductList.this, EditList.class);
+                                Intent i = new Intent(ProductList.this, EditProduct.class);
                                 startActivity(i);
                             }
                         })
@@ -155,6 +158,11 @@ public class ProductList extends Activity implements IHttpRequestListener {
                             public void onClick(DialogInterface dialog, int id1) {
                                 new ProductList.DeleteService().execute(id_product_edit);
                                 ListesdeProduits.remove(item);
+                                dialog.cancel();
+                            }
+                        })
+                        .setNeutralButton("Annuler", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id1) {
                                 dialog.cancel();
                             }
                         });

@@ -62,5 +62,11 @@ public class AddProduct extends Activity implements IHttpRequestListener {
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
     }
 
+    @Override
+    public void onBackPressed(){
+
+        Intent i = new Intent(AddProduct.this, ProductList.class);
+        startActivity(i);
+    }
 
 }

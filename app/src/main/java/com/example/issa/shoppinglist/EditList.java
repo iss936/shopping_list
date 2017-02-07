@@ -70,5 +70,17 @@ public class EditList extends Activity implements IHttpRequestListener {
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
     }
 
+    @Override
+    public void onBackPressed(){
+        SharedPreferences myPrefs = getSharedPreferences("preferences", MODE_PRIVATE);
+        SharedPreferences.Editor prefsEditor;
+        prefsEditor = myPrefs.edit();
+        prefsEditor.remove("id_list_edit");
+        prefsEditor.apply();
+
+
+        Intent i = new Intent(EditList.this, ShoppingList.class);
+        startActivity(i);
+    }
 
 }

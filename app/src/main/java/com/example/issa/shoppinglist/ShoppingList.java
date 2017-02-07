@@ -43,7 +43,6 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
             HttpRequest request = new HttpRequest();
             request.delegate = ShoppingList.this;
             request.execute(test);
-
         }
 
         public void onSuccess(JSONObject j) {
@@ -54,12 +53,21 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
         public void onFailure(String msg) {
             Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
         }
+    }
 
+    @Override
+    public void onBackPressed() {
+        //recuperation du token en sharedpreferences file
+        SharedPreferences sharedPreferences = getSharedPreferences("preferences", MODE_PRIVATE);
+        token = sharedPreferences.getString("token", "");
 
+        if(token.equals("")) {
+            Intent i = new Intent(ShoppingList.this, LoginActivity.class);
+            startActivity(i);
+        }
     }
 
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -67,6 +75,10 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
         SharedPreferences sharedPreferences = getSharedPreferences("preferences", MODE_PRIVATE);
         token = sharedPreferences.getString("token", "");
 
+        if(token.equals("")) {
+            Intent i = new Intent(ShoppingList.this, LoginActivity.class);
+            startActivity(i);
+        }
 
         ListesdeCourses = new ArrayList<>();
         mListView = (ListView) findViewById(R.id.list);
@@ -84,14 +96,28 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
 
         btn_add.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent i = new Intent(ShoppingList.this, AddList.class);
-                startActivity(i);
-
+            Intent i = new Intent(ShoppingList.this, AddList.class);
+            startActivity(i);
             }
 
         });
 
+        // On supprime le token de l'utilisateur puis on le renvoi sur l'accueil
+        Button btn_logout = (Button) findViewById(R.id.btn_logout);
 
+        btn_logout.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+            SharedPreferences myPrefs = getSharedPreferences("preferences", MODE_PRIVATE);
+            SharedPreferences.Editor prefsEditor;
+            prefsEditor = myPrefs.edit();
+            prefsEditor.remove("token");
+            prefsEditor.apply();
+
+            Intent i = new Intent(ShoppingList.this, LoginActivity.class);
+            startActivity(i);
+            }
+
+        });
     }
 
 
@@ -148,7 +174,7 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
                         ShoppingList.this);
 
                 // set title
-                alertDialogBuilder.setTitle("Menu");
+                alertDialogBuilder.setTitle("Options");
 
                 // set dialog message
                 alertDialogBuilder
@@ -189,7 +215,6 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
 
                 // show it
                 alertDialog.show();
-
 
                 return false;
             }

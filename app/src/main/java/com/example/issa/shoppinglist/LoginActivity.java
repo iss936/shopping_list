@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -14,11 +15,35 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class LoginActivity extends Activity implements IHttpRequestListener {
+    String token;
+
+    @Override
+    public void onBackPressed() {
+        //recuperation du token en sharedpreferences file
+        SharedPreferences sharedPreferences = getSharedPreferences("preferences", MODE_PRIVATE);
+        token = sharedPreferences.getString("token", "");
+
+        if(!token.equals("")) {
+            Intent i = new Intent(LoginActivity.this, ShoppingList.class);
+            startActivity(i);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        //recuperation du token en sharedpreferences file
+        SharedPreferences sharedPreferences = getSharedPreferences("preferences", MODE_PRIVATE);
+        token = sharedPreferences.getString("token","");
+
+        Log.d("token", token);
+
+        if(!token.equals("")) {
+            Intent i = new Intent(LoginActivity.this, ShoppingList.class);
+            startActivity(i);
+        }
 
         final TextInputLayout email_wrapper = (TextInputLayout) findViewById(R.id.email_wrapper);
         final TextInputLayout password_wrapper = (TextInputLayout) findViewById(R.id.password_wrapper);
@@ -55,8 +80,8 @@ public class LoginActivity extends Activity implements IHttpRequestListener {
         btn_signup.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                Intent i = new Intent(LoginActivity.this, SignUpActivity.class);
-                startActivity(i);
+            Intent i = new Intent(LoginActivity.this, SignUpActivity.class);
+            startActivity(i);
             }
         });
     }

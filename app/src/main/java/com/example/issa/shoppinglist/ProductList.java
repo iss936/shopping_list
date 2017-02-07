@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Steve on 06/02/2017.
+ * Created by philippe on 06/02/2017.
  */
 
 public class ProductList extends Activity implements IHttpRequestListener {

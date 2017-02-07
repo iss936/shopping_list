@@ -12,7 +12,7 @@ import android.widget.Toast;
 import org.json.JSONObject;
 
 /**
- * Created by Steve on 07/02/2017.
+ * Created by philippe on 07/02/2017.
  */
 
 public class AddProduct extends Activity implements IHttpRequestListener {

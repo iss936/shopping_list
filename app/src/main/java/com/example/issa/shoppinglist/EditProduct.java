@@ -24,8 +24,8 @@ public class EditProduct extends Activity implements IHttpRequestListener {
     String name;
     String shopping_list_id;
     String id_product_edit;
-    float price;
-    int quantity;
+    String price;
+    String quantity;
     String product_name;
 
     @Override
@@ -39,12 +39,23 @@ public class EditProduct extends Activity implements IHttpRequestListener {
         shopping_list_id = sharedPreferences.getString("id_list_edit","");
         id_product_edit = sharedPreferences.getString("id_product_edit", "");
         product_name = sharedPreferences.getString("product_name", "");
+        quantity = sharedPreferences.getString("quantity", "");
+        price = sharedPreferences.getString("price", "");
 
         // On envoi le nom de la liste en front
         TextView front_list_name = (TextView)findViewById(R.id.name);
 
         front_list_name.setText(product_name);
+        /*
+        front_list_name = (TextView)findViewById(R.id.quantity);
+        front_list_name.setText(quantity);
+
+        front_list_name = (TextView)findViewById(R.id.price);
+        front_list_name.setText(price);
+*/
         final TextInputLayout name_wrapper = (TextInputLayout) findViewById(R.id.name_wrapper);
+       // final TextInputLayout quantity_wrapper = (TextInputLayout) findViewById(R.id.quantity);
+       // final TextInputLayout price_wrapper = (TextInputLayout) findViewById(R.id.price);
 
         Button btn_add = (Button) findViewById(R.id.btn_save);
 
@@ -52,6 +63,9 @@ public class EditProduct extends Activity implements IHttpRequestListener {
             public void onClick(View v) {
 
                 name = name_wrapper.getEditText().getText().toString();
+             //   quantity = quantity_wrapper.getEditText().getText().toString();
+              //  price = price_wrapper.getEditText().getText().toString();
+
                 // recuperer ici quantity et price
                 try {
                     name = URLEncoder.encode(name, "utf-8");
@@ -101,6 +115,8 @@ public class EditProduct extends Activity implements IHttpRequestListener {
         prefsEditor = myPrefs.edit();
         prefsEditor.remove("id_product_edit");
         prefsEditor.remove("product_name");
+        prefsEditor.remove("quantity");
+        prefsEditor.remove("price");
         prefsEditor.apply();
 
         Intent i = new Intent(EditProduct.this, ProductList.class);

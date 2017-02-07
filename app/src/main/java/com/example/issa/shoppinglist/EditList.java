@@ -78,7 +78,6 @@ public class EditList extends Activity implements IHttpRequestListener {
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
-
                     request.execute("http://appspaces.fr/esgi/shopping_list/shopping_list/edit.php?token="+token+"&id="+id_list+"&name="+name+"&completed="+complete);
                 }
             }

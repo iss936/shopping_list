@@ -50,7 +50,7 @@ public class AddList extends Activity implements IHttpRequestListener {
             }
 
             if(name.length() < 2) {
-                name_wrapper.setError("Veuillez saisir un prénom contenant au moins 2 lettres");
+                name_wrapper.setError("Veuillez saisir un nom contenant au moins 2 lettres");
             }
             else {
                 HttpRequest request = new HttpRequest();

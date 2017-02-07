@@ -110,6 +110,8 @@ public class ProductList extends Activity implements IHttpRequestListener {
             HashMap<String, String> item;
             String id_product_edit;
             String product_name;
+            String quantity;
+            String price;
 
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view,
@@ -118,6 +120,8 @@ public class ProductList extends Activity implements IHttpRequestListener {
                 item = (HashMap<String, String>) parent.getAdapter().getItem(position);
                 id_product_edit = (item.get("id"));
                 product_name = (item.get("name"));
+                quantity = (item.get("quantity"));
+                price = (item.get("price"));
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                         ProductList.this);
@@ -138,6 +142,8 @@ public class ProductList extends Activity implements IHttpRequestListener {
                                 prefsEditor = myPrefs.edit();
                                 prefsEditor.putString("id_product_edit", id_product_edit);
                                 prefsEditor.putString("product_name", product_name);
+                                prefsEditor.putString("quantity", quantity);
+                                prefsEditor.putString("price", price);
                                 prefsEditor.commit();
 
                                 Intent i = new Intent(ProductList.this, EditProduct.class);

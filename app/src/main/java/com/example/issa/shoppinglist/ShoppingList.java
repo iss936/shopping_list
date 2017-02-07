@@ -79,29 +79,11 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
         request.delegate = ShoppingList.this;
         request.execute(test);
 
-
         Button btn_add = (Button) findViewById(R.id.btn_add);
 
         btn_add.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             Intent i = new Intent(ShoppingList.this, AddList.class);
-            startActivity(i);
-            }
-
-        });
-
-        // On supprime le token de l'utilisateur puis on le renvoi sur l'accueil
-        Button btn_logout = (Button) findViewById(R.id.btn_logout);
-
-        btn_logout.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-            SharedPreferences myPrefs = getSharedPreferences("preferences", MODE_PRIVATE);
-            SharedPreferences.Editor prefsEditor;
-            prefsEditor = myPrefs.edit();
-            prefsEditor.remove("token");
-            prefsEditor.apply();
-
-            Intent i = new Intent(ShoppingList.this, LoginActivity.class);
             startActivity(i);
             }
 
@@ -258,7 +240,7 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
             startActivity(i);
         }
         else {
-            Intent i = new Intent(ShoppingList.this, LoginActivity.class);
+            Intent i = new Intent(ShoppingList.this, MenuActivity.class);
             startActivity(i);
         }
     }

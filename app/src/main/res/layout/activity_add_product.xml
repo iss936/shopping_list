@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/activity_horizontal_margin"
-    tools:context=".LoginActivity"
+    tools:context=".AddProduct"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -41,7 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:hint="@string/hint_listname"/>
+                android:hint="@string/hint_productname"/>
         </android.support.design.widget.TextInputLayout>
 
 

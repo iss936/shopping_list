@@ -44,19 +44,16 @@ public class ProductList extends Activity implements IHttpRequestListener {
             HttpRequest request = new HttpRequest();
             request.delegate = ProductList.this;
             request.execute(test);
-
         }
 
         public void onSuccess(JSONObject j) {
-            Toast.makeText(getApplicationContext(), "Produit Supprimée", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Produit Supprimé", Toast.LENGTH_LONG).show();
         }
 
         @Override
         public void onFailure(String msg) {
             Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
         }
-
-
     }
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +64,7 @@ public class ProductList extends Activity implements IHttpRequestListener {
         //recuperation du token en sharedpreferences file
         SharedPreferences sharedPreferences = getSharedPreferences("preferences", MODE_PRIVATE);
         token = sharedPreferences.getString("token", "");
-        shopping_list_id = sharedPreferences.getString("id_list_edit","");
+        shopping_list_id = sharedPreferences.getString("id_list_edit", "");
 
 
         ListesdeProduits = new ArrayList<>();
@@ -90,7 +87,6 @@ public class ProductList extends Activity implements IHttpRequestListener {
                 startActivity(i);
             }
         });
-
 
     }
 
@@ -122,7 +118,7 @@ public class ProductList extends Activity implements IHttpRequestListener {
                         ProductList.this);
 
                 // set title
-                alertDialogBuilder.setTitle("Menu");
+                alertDialogBuilder.setTitle("Options");
 
                 // set dialog message
                 alertDialogBuilder
@@ -203,9 +199,18 @@ public class ProductList extends Activity implements IHttpRequestListener {
     }
 
     @Override
-    public void onBackPressed(){
-        Intent i = new Intent(ProductList.this, ShoppingList.class);
-        startActivity(i);
-    }
+    public void onBackPressed() {
+        //recuperation du token en sharedpreferences file
+        SharedPreferences sharedPreferences = getSharedPreferences("preferences", MODE_PRIVATE);
+        token = sharedPreferences.getString("token", "");
 
+        if(token.equals("")) {
+            Intent i = new Intent(ProductList.this, LoginActivity.class);
+            startActivity(i);
+        }
+        else {
+            Intent i = new Intent(ProductList.this, ShoppingList.class);
+            startActivity(i);
+        }
+    }
 }

@@ -2,6 +2,7 @@ package com.example.issa.shoppinglist;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -15,6 +16,19 @@ import org.json.JSONObject;
 import java.util.regex.Pattern;
 
 public class SignUpActivity extends Activity implements IHttpRequestListener {
+    String token;
+
+    @Override
+    public void onBackPressed() {
+        //recuperation du token en sharedpreferences file
+        SharedPreferences sharedPreferences = getSharedPreferences("preferences", MODE_PRIVATE);
+        token = sharedPreferences.getString("token", "");
+
+        if(!token.equals("")) {
+            Intent i = new Intent(SignUpActivity.this, ShoppingList.class);
+            startActivity(i);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

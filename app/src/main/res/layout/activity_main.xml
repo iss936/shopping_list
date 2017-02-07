@@ -5,42 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/activity_horizontal_margin"
-    tools:context=".LoginActivity"
+    tools:context=".ShoppingList"
     android:orientation="vertical"
     android:weightSum="1">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="359dp"
-        android:orientation="vertical"
-        android:weightSum="1">
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:orientation="vertical">
 
         <ListView
             android:id="@+id/list"
             android:layout_width="wrap_content"
             android:layout_height="371dp" />
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="2">
-
-        <Button
-            android:id="@+id/btn_add"
-            android:layout_marginTop="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/add"/>
-
-        <Button
-            android:id="@+id/btn_logout"
-            android:layout_marginTop="70dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/logout"/>
 
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_add"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add"
+        android:layout_weight="0.5" />
 
 </LinearLayout>

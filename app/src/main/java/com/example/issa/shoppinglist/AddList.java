@@ -17,8 +17,9 @@ import org.json.JSONObject;
  */
 
 public class AddList extends Activity implements IHttpRequestListener {
-String token;
+    String token;
     String name;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,8 +27,8 @@ String token;
 
         //recuperation du token en sharedpreferences file
         SharedPreferences sharedPreferences = getSharedPreferences("preferences", MODE_PRIVATE);
-        token = sharedPreferences.getString("token","");
-        Log.d("token", "test"+token);
+        token = sharedPreferences.getString("token", "");
+
         final TextInputLayout name_wrapper = (TextInputLayout) findViewById(R.id.name_wrapper);
 
         Button btn_add = (Button) findViewById(R.id.btn_add);
@@ -35,23 +36,23 @@ String token;
         btn_add.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                name = name_wrapper.getEditText().getText().toString();
+            name = name_wrapper.getEditText().getText().toString();
 
-
-                if (name.length() < 2) {
-                    name_wrapper.setError("Veuillez saisir un prénom contenant au moins 2 lettres");
-                } else {
-                    HttpRequest request = new HttpRequest();
-                    request.delegate = AddList.this;
-                    request.execute("http://appspaces.fr/esgi/shopping_list/shopping_list/create.php?token="+token+"&name="+name);
-                }
+            if (name.length() < 2) {
+                name_wrapper.setError("Veuillez saisir un prénom contenant au moins 2 lettres");
+            }
+            else {
+                HttpRequest request = new HttpRequest();
+                request.delegate = AddList.this;
+                request.execute("http://appspaces.fr/esgi/shopping_list/shopping_list/create.php?token="+token+"&name="+name);
+            }
             }
         });
     }
 
     @Override
     public void onSuccess(JSONObject j) {
-        Toast.makeText(getApplicationContext(), "La liste "+ name + "est créée!", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "La liste '" + name + "' est créée!", Toast.LENGTH_LONG).show();
         Intent i = new Intent(AddList.this, ShoppingList.class);
         startActivity(i);
     }
@@ -66,5 +67,4 @@ String token;
         Intent i = new Intent(AddList.this, ShoppingList.class);
         startActivity(i);
     }
-
 }

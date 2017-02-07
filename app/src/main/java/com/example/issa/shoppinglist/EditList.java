@@ -72,15 +72,22 @@ public class EditList extends Activity implements IHttpRequestListener {
 
     @Override
     public void onBackPressed(){
-        SharedPreferences myPrefs = getSharedPreferences("preferences", MODE_PRIVATE);
         SharedPreferences.Editor prefsEditor;
-        prefsEditor = myPrefs.edit();
-        prefsEditor.remove("id_list_edit");
-        prefsEditor.apply();
 
+        SharedPreferences myPrefs = getSharedPreferences("preferences", MODE_PRIVATE);
+        token = myPrefs.getString("token", "");
 
-        Intent i = new Intent(EditList.this, ShoppingList.class);
-        startActivity(i);
+        if(token.equals("")) {
+            Intent i = new Intent(EditList.this, LoginActivity.class);
+            startActivity(i);
+        }
+        else {
+            prefsEditor = myPrefs.edit();
+            prefsEditor.remove("id_list_edit");
+            prefsEditor.apply();
+
+            Intent i = new Intent(EditList.this, ShoppingList.class);
+            startActivity(i);
+        }
     }
-
 }

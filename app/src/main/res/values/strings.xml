@@ -1,10 +1,13 @@
 <resources>
     <string name="app_name">Shopping List</string>
+    <string name="menu">Menu</string>
+    <string name="my_lists">Voir mes listes</string>
+
     <string name="sign_in">Connexion</string>
     <string name="sign_up">Inscription</string>
-    <string name="add_list">Création de liste</string>
+    <string name="add_list">Ajouter une liste</string>
     <string name="rename_list">Renommer la liste</string>
-    <string name="add_product">Création de produit</string>
+    <string name="add_product">Ajouter un produit</string>
     <string name="logout">Déconnexion</string>
 
     <string name="hint_last_name">Nom</string>
@@ -13,6 +16,7 @@
     <string name="hint_password">Saisissez votre mot de passe</string>
     <string name="hint_confirm_password">Confirmez le mot de passe</string>
     <string name="hint_listname">Nom de la Liste</string>
+    <string name="hint_productname">Nom du produit</string>
 
     <string name="button_validate">Valider</string>
 

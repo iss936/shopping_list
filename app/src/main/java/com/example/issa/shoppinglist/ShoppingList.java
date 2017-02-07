@@ -55,18 +55,6 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        //recuperation du token en sharedpreferences file
-        SharedPreferences sharedPreferences = getSharedPreferences("preferences", MODE_PRIVATE);
-        token = sharedPreferences.getString("token", "");
-
-        if(token.equals("")) {
-            Intent i = new Intent(ShoppingList.this, LoginActivity.class);
-            startActivity(i);
-        }
-    }
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -258,10 +246,20 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
     }
 
-    @Override
-    public void onBackPressed(){
-        Intent i = new Intent(ShoppingList.this, LoginActivity.class);
-        startActivity(i);
-    }
 
+    @Override
+    public void onBackPressed() {
+        //recuperation du token en sharedpreferences file
+        SharedPreferences sharedPreferences = getSharedPreferences("preferences", MODE_PRIVATE);
+        token = sharedPreferences.getString("token", "");
+
+        if(token.equals("")) {
+            Intent i = new Intent(ShoppingList.this, LoginActivity.class);
+            startActivity(i);
+        }
+        else {
+            Intent i = new Intent(ShoppingList.this, LoginActivity.class);
+            startActivity(i);
+        }
+    }
 }

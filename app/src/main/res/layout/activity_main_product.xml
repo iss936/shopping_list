@@ -15,6 +15,23 @@
         android:layout_weight="0.5"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/list_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/edit_product"
+            android:textSize="30sp"
+            android:textColor="#333333"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:orientation="vertical">
+
         <ListView
             android:id="@+id/list"
             android:layout_width="wrap_content"
@@ -27,7 +44,7 @@
         android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/add" />
+        android:text="@string/add_product" />
 
     <Button
         android:id="@+id/btn_return"

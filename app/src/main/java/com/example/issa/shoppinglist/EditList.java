@@ -8,6 +8,7 @@ import android.support.design.widget.TextInputLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONObject;
@@ -20,23 +21,23 @@ public class EditList extends Activity implements IHttpRequestListener {
     String token;
     String name;
     String id_list;
+    String name_list;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_list);
 
-        //recuperation du token en sharedpreferences file
+        // Récuperation du token en sharedpreferences file
         SharedPreferences sharedPreferences = getSharedPreferences("preferences", MODE_PRIVATE);
         token = sharedPreferences.getString("token","");
-        id_list = sharedPreferences.getString("id_list_edit","");
-        //recuperation du token en sharedpreferences file
+        id_list = sharedPreferences.getString("id_list_edit", "");
 
-        Log.d("token", "test"+token);
         final TextInputLayout name_wrapper = (TextInputLayout) findViewById(R.id.name_wrapper);
 
-        Button btn_rename = (Button) findViewById(R.id.btn_rename);
+        Button btn_save = (Button) findViewById(R.id.btn_save);
 
-        btn_rename.setOnClickListener(new View.OnClickListener() {
+        btn_save.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
                 name = name_wrapper.getEditText().getText().toString();

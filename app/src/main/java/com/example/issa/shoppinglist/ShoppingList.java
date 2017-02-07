@@ -182,6 +182,7 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             HashMap<String, String> item;
             String id_list;
+            String name_list;
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
@@ -189,12 +190,14 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
 
                 item = (HashMap<String, String>) parent.getAdapter().getItem(position);
                 id_list = (item.get("id"));
+                name_list = (item.get("name"));
 
                 // ajout de l'id en SharedPreferences pour les Traitements
                 SharedPreferences myPrefs = getSharedPreferences("preferences", MODE_PRIVATE);
                 SharedPreferences.Editor prefsEditor;
                 prefsEditor = myPrefs.edit();
                 prefsEditor.putString("id_list_edit", id_list);
+                prefsEditor.putString("name_list_edit", name_list);
                 prefsEditor.commit();
 
                 Intent i = new Intent(ShoppingList.this, ProductList.class);

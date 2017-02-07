@@ -3,13 +3,13 @@
     <string name="menu">Menu</string>
     <string name="return_menu">Retour au menu</string>
     <string name="return_lists">Retour aux listes</string>
-    <string name="my_lists">Voir mes listes</string>
+    <string name="my_lists">Mes listes</string>
+    <string name="watch_my_lists">Voir mes listes</string>
 
     <string name="sign_in">Connexion</string>
     <string name="sign_up">Inscription</string>
-    <string name="add_list">Ajouter une liste</string>
-    <string name="rename_list">Renommer la liste</string>
-    <string name="add_product">Ajouter un produit</string>
+    <string name="edit_list">Modifier la liste</string>
+    <string name="edit_product">Modifier le produit</string>
     <string name="logout">Déconnexion</string>
 
     <string name="hint_last_name">Nom</string>
@@ -21,9 +21,12 @@
     <string name="hint_productname">Nom du produit</string>
 
     <string name="button_validate">Valider</string>
+    <string name="button_save">Sauvegarder</string>
 
     <string name="success_login">Vous êtes connecté</string>
     <string name="add">Ajouter</string>
+    <string name="add_list">Ajouter une liste</string>
+    <string name="add_product">Ajouter un produit</string>
     <string name="remove">Supprimer</string>
     <string name="error_email">Veuillez saisir une adresse mail</string>
     <string name="error_password">Veuillez saisir un mot de passe</string>

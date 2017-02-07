@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -35,6 +36,7 @@ public class ProductList extends Activity implements IHttpRequestListener {
     String[] entetes = new String[]{"name", "quantity", "id", "price"};
     String token;
     String shopping_list_id;
+    String shopping_list_name;
 
     private class DeleteService implements IHttpRequestListener {
 
@@ -57,7 +59,6 @@ public class ProductList extends Activity implements IHttpRequestListener {
     }
 
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_product);
 
@@ -65,7 +66,11 @@ public class ProductList extends Activity implements IHttpRequestListener {
         SharedPreferences sharedPreferences = getSharedPreferences("preferences", MODE_PRIVATE);
         token = sharedPreferences.getString("token", "");
         shopping_list_id = sharedPreferences.getString("id_list_edit", "");
+        shopping_list_name = sharedPreferences.getString("name_list_edit", "");
 
+        // On envoi le nom de la liste en front
+        TextView front_list_name = (TextView)findViewById(R.id.list_name);
+        front_list_name.setText(shopping_list_name);
 
         ListesdeProduits = new ArrayList<>();
         mListView = (ListView) findViewById(R.id.list);
@@ -101,7 +106,6 @@ public class ProductList extends Activity implements IHttpRequestListener {
 
 
     private void afficherListoflist() {
-
         ListAdapter adapter;
         adapter = new SimpleAdapter(ProductList.this, (List<? extends Map<String, ?>>) ListesdeProduits,
                 R.layout.list_item, entetes, new int[]{R.id.name,
@@ -136,7 +140,6 @@ public class ProductList extends Activity implements IHttpRequestListener {
                         .setPositiveButton("Modifier", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 
-
                                 // ajout de l'id en SharedPreferences pour les Traitements
                                 SharedPreferences myPrefs = getSharedPreferences("preferences", MODE_PRIVATE);
                                 SharedPreferences.Editor prefsEditor;
@@ -146,7 +149,6 @@ public class ProductList extends Activity implements IHttpRequestListener {
 
                                 Intent i = new Intent(ProductList.this, EditList.class);
                                 startActivity(i);
-
                             }
                         })
                         .setNegativeButton("Supprimer", new DialogInterface.OnClickListener() {

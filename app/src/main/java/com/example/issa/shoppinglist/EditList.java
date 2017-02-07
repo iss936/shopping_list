@@ -8,6 +8,7 @@ import android.support.design.widget.TextInputLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,8 @@ import org.json.JSONObject;
 public class EditList extends Activity implements IHttpRequestListener {
     String token;
     String name;
+    String complete;
+    String complete_list;
     String id_list;
     String name_list;
 
@@ -32,18 +35,24 @@ public class EditList extends Activity implements IHttpRequestListener {
         setContentView(R.layout.activity_edit_list);
         SharedPreferences sharedPreferences = getSharedPreferences("preferences", MODE_PRIVATE);
         name_list = sharedPreferences.getString("name_list_edit", "");
+        complete_list = sharedPreferences.getString("complete_list_edit", getString(R.string.uncomplete_list));
+
+        final TextInputLayout name_wrapper = (TextInputLayout) findViewById(R.id.name_wrapper);
+        final CheckBox cb_complete = (CheckBox) findViewById(R.id.cb_complete);
 
         // On envoi le nom de la liste en front
         TextView front_list_name = (TextView)findViewById(R.id.name);
 
         front_list_name.setText(name_list);
 
+        if(complete_list == getString(R.string.complete_list)) {
+            cb_complete.setChecked(true);
+        }
+
         // Récuperation du token en sharedpreferences file
         sharedPreferences = getSharedPreferences("preferences", MODE_PRIVATE);
         token = sharedPreferences.getString("token","");
         id_list = sharedPreferences.getString("id_list_edit", "");
-
-        final TextInputLayout name_wrapper = (TextInputLayout) findViewById(R.id.name_wrapper);
 
         Button btn_save = (Button) findViewById(R.id.btn_rename);
 
@@ -51,6 +60,13 @@ public class EditList extends Activity implements IHttpRequestListener {
             public void onClick(View v) {
 
                 name = name_wrapper.getEditText().getText().toString();
+
+                if(cb_complete.isChecked()) {
+                    complete = "1";
+                }
+                else {
+                    complete = "0";
+                }
 
                 if (name.length() < 2) {
                     name_wrapper.setError("Veuillez saisir un prénom contenant au moins 2 lettres");
@@ -63,7 +79,7 @@ public class EditList extends Activity implements IHttpRequestListener {
                         e.printStackTrace();
                     }
 
-                    request.execute("http://appspaces.fr/esgi/shopping_list/shopping_list/edit.php?token="+token+"&id="+id_list+"&name="+name);
+                    request.execute("http://appspaces.fr/esgi/shopping_list/shopping_list/edit.php?token="+token+"&id="+id_list+"&name="+name+"&completed="+complete);
                 }
             }
         });
@@ -76,7 +92,9 @@ public class EditList extends Activity implements IHttpRequestListener {
         prefsEditor = myPrefs.edit();
         prefsEditor.putString("id_list_edit", "");
         prefsEditor.commit();
-        Toast.makeText(getApplicationContext(), "La liste "+ name + " est modifiée!", Toast.LENGTH_LONG).show();
+
+        Toast.makeText(getApplicationContext(), "La liste "+ name + " a été modifiée!", Toast.LENGTH_LONG).show();
+
         Intent i = new Intent(EditList.this, ShoppingList.class);
         startActivity(i);
     }

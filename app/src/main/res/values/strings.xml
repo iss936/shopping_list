@@ -25,6 +25,8 @@
 
     <string name="success_login">Vous êtes connecté</string>
     <string name="add">Ajouter</string>
+    <string name="complete_list">Liste complétée</string>
+    <string name="uncomplete_list">Liste non complétée</string>
     <string name="add_list">Ajouter une liste</string>
     <string name="add_product">Ajouter un produit</string>
     <string name="remove">Supprimer</string>

@@ -63,6 +63,11 @@ public class EditProduct extends Activity implements IHttpRequestListener {
                 } else {
                     HttpRequest request = new HttpRequest();
                     request.delegate = EditProduct.this;
+                    try {
+                        name = java.net.URLEncoder.encode(name, "utf-8");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
                     request.execute("http://appspaces.fr/esgi/shopping_list/product/edit.php?token="+token+"&name="+name+"&quantity="+quantity+"&price="+price+"&id="+id_product_edit);
                 }
             }
@@ -71,7 +76,7 @@ public class EditProduct extends Activity implements IHttpRequestListener {
 
     @Override
     public void onSuccess(JSONObject j) {
-        Toast.makeText(getApplicationContext(), "Le produit "+ name + "est modifié !", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Le produit "+ name + " a été modifié !", Toast.LENGTH_LONG).show();
         SharedPreferences.Editor prefsEditor;
         SharedPreferences myPrefs = getSharedPreferences("preferences", MODE_PRIVATE);
         prefsEditor = myPrefs.edit();

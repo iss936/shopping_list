@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+
 /**
  * Created by philippe on 07/02/2017.
  */
@@ -44,6 +46,11 @@ public class AddProduct extends Activity implements IHttpRequestListener {
                 } else {
                     HttpRequest request = new HttpRequest();
                     request.delegate = AddProduct.this;
+                    try {
+                        name = java.net.URLEncoder.encode(name, "utf-8");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
                     request.execute("http://appspaces.fr/esgi/shopping_list/product/create.php?token="+token+"&shopping_list_id="+shopping_list_id+"&name="+name);
                 }
             }
@@ -52,7 +59,7 @@ public class AddProduct extends Activity implements IHttpRequestListener {
 
     @Override
     public void onSuccess(JSONObject j) {
-        Toast.makeText(getApplicationContext(), "Le produit "+ name + "est créée!", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Le produit "+ name + " a été ajouté !", Toast.LENGTH_LONG).show();
         Intent i = new Intent(AddProduct.this, ProductList.class);
         startActivity(i);
     }

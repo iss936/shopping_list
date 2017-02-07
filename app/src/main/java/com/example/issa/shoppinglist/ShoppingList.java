@@ -77,8 +77,6 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
 
 
         String test = "http://appspaces.fr/esgi/shopping_list/shopping_list/list.php?token=" + token;
-        Log.d("requete", test);
-        Log.d("token", "test" + token);
         HttpRequest request = new HttpRequest();
         request.delegate = ShoppingList.this;
         request.execute(test);
@@ -89,16 +87,6 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
             public void onClick(View v) {
             Intent i = new Intent(ShoppingList.this, AddList.class);
             startActivity(i);
-            }
-
-        });
-
-        Button btn_return = (Button) findViewById(R.id.btn_return);
-
-        btn_return.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent i = new Intent(ShoppingList.this, MenuActivity.class);
-                startActivity(i);
             }
 
         });
@@ -121,6 +109,7 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
             HashMap<String, String> item;
             String id_list;
             String name_list_edit;
+            String complete_list_edit;
 
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view,
@@ -129,6 +118,7 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
                 item = (HashMap<String, String>) parent.getAdapter().getItem(position);
                 id_list = (item.get("id"));
                 name_list_edit = (item.get("name"));
+                complete_list_edit = (item.get("completed"));
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                         ShoppingList.this);
@@ -150,6 +140,7 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
                                 prefsEditor = myPrefs.edit();
                                 prefsEditor.putString("id_list_edit", id_list);
                                 prefsEditor.putString("name_list_edit", name_list_edit);
+                                prefsEditor.putString("complete_list_edit", complete_list_edit);
 
                                 prefsEditor.commit();
 
@@ -187,6 +178,7 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
             HashMap<String, String> item;
             String id_list;
             String name_list;
+            String complete_list_edit;
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
@@ -195,6 +187,7 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
                 item = (HashMap<String, String>) parent.getAdapter().getItem(position);
                 id_list = (item.get("id"));
                 name_list = (item.get("name"));
+                complete_list_edit = (item.get("completed"));
 
                 // ajout de l'id en SharedPreferences pour les Traitements
                 SharedPreferences myPrefs = getSharedPreferences("preferences", MODE_PRIVATE);
@@ -202,6 +195,7 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
                 prefsEditor = myPrefs.edit();
                 prefsEditor.putString("id_list_edit", id_list);
                 prefsEditor.putString("name_list_edit", name_list);
+                prefsEditor.putString("complete_list_edit", complete_list_edit);
                 prefsEditor.commit();
 
                 Intent i = new Intent(ShoppingList.this, ProductList.class);
@@ -225,9 +219,16 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
                 String created_date = c.getString("created_date");
                 String completed = c.getString("completed");
 
+                if(completed == "1") {
+                    completed = getString(R.string.complete_list);
+                }
+                else {
+                    completed = getString(R.string.uncomplete_list);
+                }
+
                 // On modifie le format de la date
                 String inputPattern = "yyyy-MM-dd HH:mm:ss";
-                String outputPattern = "dd/mm/yyyy";
+                String outputPattern = "dd/MM/yyyy";
                 SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
                 SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
 

@@ -174,7 +174,7 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
                 // show it
                 alertDialog.show();
 
-                return false;
+                return true;
             }
 
         });
@@ -199,7 +199,6 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
 
                 Intent i = new Intent(ShoppingList.this, ProductList.class);
                 startActivity(i);
-
             }
 
         });

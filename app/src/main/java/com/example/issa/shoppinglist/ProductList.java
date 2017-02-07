@@ -165,7 +165,7 @@ public class ProductList extends Activity implements IHttpRequestListener {
                 alertDialog.show();
 
 
-                return false;
+                return true;
             }
 
         });

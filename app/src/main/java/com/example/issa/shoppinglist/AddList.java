@@ -22,7 +22,7 @@ import java.io.UnsupportedEncodingException;
 public class AddList extends Activity implements IHttpRequestListener {
     String token;
     String name;
-    Integer complete;
+    String complete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +43,10 @@ public class AddList extends Activity implements IHttpRequestListener {
             name = name_wrapper.getEditText().getText().toString();
 
             if(cb_complete.isChecked()) {
-                complete = 1;
+                complete = "1";
             }
             else {
-                complete = 0;
+                complete = "0";
             }
 
             if(name.length() < 2) {
@@ -60,7 +60,7 @@ public class AddList extends Activity implements IHttpRequestListener {
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
-                request.execute("http://appspaces.fr/esgi/shopping_list/shopping_list/create.php?token="+token+"&name="+name);
+                request.execute("http://appspaces.fr/esgi/shopping_list/shopping_list/create.php?token="+token+"&name="+name+"&completed="+complete);
             }
             }
         });

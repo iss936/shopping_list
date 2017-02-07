@@ -120,6 +120,7 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             HashMap<String, String> item;
             String id_list;
+            String name_list_edit;
 
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view,
@@ -127,6 +128,7 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
 
                 item = (HashMap<String, String>) parent.getAdapter().getItem(position);
                 id_list = (item.get("id"));
+                name_list_edit = (item.get("name"))
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                         ShoppingList.this);
@@ -147,6 +149,8 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
                                 SharedPreferences.Editor prefsEditor;
                                 prefsEditor = myPrefs.edit();
                                 prefsEditor.putString("id_list_edit", id_list);
+                                prefsEditor.putString("name_list_edit", name_list_edit);
+
                                 prefsEditor.commit();
 
                                 Intent i = new Intent(ShoppingList.this, EditList.class);

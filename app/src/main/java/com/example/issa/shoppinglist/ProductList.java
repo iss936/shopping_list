@@ -118,14 +118,14 @@ public class ProductList extends Activity implements IHttpRequestListener {
 
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             HashMap<String, String> item;
-            String id_list;
+            String id_product_edit;
 
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view,
                                            int position, long arg3) {
 
                 item = (HashMap<String, String>) parent.getAdapter().getItem(position);
-                id_list = (item.get("id"));
+                id_product_edit = (item.get("id"));
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                         ProductList.this);
@@ -144,7 +144,7 @@ public class ProductList extends Activity implements IHttpRequestListener {
                                 SharedPreferences myPrefs = getSharedPreferences("preferences", MODE_PRIVATE);
                                 SharedPreferences.Editor prefsEditor;
                                 prefsEditor = myPrefs.edit();
-                                prefsEditor.putString("id_list_edit", id_list);
+                                prefsEditor.putString("id_product_edit", id_product_edit);
                                 prefsEditor.commit();
 
                                 Intent i = new Intent(ProductList.this, EditList.class);
@@ -153,8 +153,7 @@ public class ProductList extends Activity implements IHttpRequestListener {
                         })
                         .setNegativeButton("Supprimer", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id1) {
-
-                                new ProductList.DeleteService().execute(id_list);
+                                new ProductList.DeleteService().execute(id_product_edit);
                                 ListesdeProduits.remove(item);
                                 dialog.cancel();
                             }
@@ -211,15 +210,21 @@ public class ProductList extends Activity implements IHttpRequestListener {
 
     @Override
     public void onBackPressed() {
+        SharedPreferences.Editor prefsEditor;
         //recuperation du token en sharedpreferences file
-        SharedPreferences sharedPreferences = getSharedPreferences("preferences", MODE_PRIVATE);
-        token = sharedPreferences.getString("token", "");
+        SharedPreferences myPrefs = getSharedPreferences("preferences", MODE_PRIVATE);
+        token = myPrefs.getString("token", "");
 
         if(token.equals("")) {
             Intent i = new Intent(ProductList.this, LoginActivity.class);
             startActivity(i);
         }
         else {
+            prefsEditor = myPrefs.edit();
+            prefsEditor.remove("id_list_edit");
+            prefsEditor.remove("name_list_edit");
+            prefsEditor.apply();
+
             Intent i = new Intent(ProductList.this, ShoppingList.class);
             startActivity(i);
         }

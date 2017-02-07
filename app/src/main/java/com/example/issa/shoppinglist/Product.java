@@ -7,18 +7,20 @@ package com.example.issa.shoppinglist;
 public class Product {
 
     private String name;
+    private int id;
     private int quantity;
     private double price;
 
 
-    public Product(String name, int quantity, double price) {
+    public Product(String name, int quantity, double price, int id) {
         this.name = name;
         this.quantity = quantity;
         this.price = price;
+        this.id = id;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
@@ -26,7 +28,7 @@ public class Product {
     }
 
     public int getQuantity() {
-        return quantity;
+        return this.quantity;
     }
 
     public void setQuantity(int quantity) {
@@ -34,10 +36,14 @@ public class Product {
     }
 
     public double getPrice() {
-        return price;
+        return this.price;
     }
 
     public void setPrice(double price) {
         this.price = price;
     }
+
+    public void setId(int id) {this.id = id;}
+
+    public int getId(){ return this.id;}
 }

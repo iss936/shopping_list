@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import org.json.JSONObject;
 
 /**
@@ -27,6 +30,13 @@ public class EditList extends Activity implements IHttpRequestListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_list);
+        SharedPreferences sharedPreferences = getSharedPreferences("preferences", MODE_PRIVATE);
+        name_list = sharedPreferences.getString("name_list_edit", "");
+
+        // On envoi le nom de la liste en front
+        TextView front_list_name = (TextView)findViewById(R.id.name);
+
+        front_list_name.setText(name_list);
 
         // Récuperation du token en sharedpreferences file
         SharedPreferences sharedPreferences = getSharedPreferences("preferences", MODE_PRIVATE);
@@ -48,6 +58,12 @@ public class EditList extends Activity implements IHttpRequestListener {
                 } else {
                     HttpRequest request = new HttpRequest();
                     request.delegate = EditList.this;
+                    try {
+                        name = URLEncoder.encode(name, "utf-8");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+
                     request.execute("http://appspaces.fr/esgi/shopping_list/shopping_list/edit.php?token="+token+"&id="+id_list+"&name="+name);
                 }
             }
@@ -85,6 +101,7 @@ public class EditList extends Activity implements IHttpRequestListener {
         else {
             prefsEditor = myPrefs.edit();
             prefsEditor.remove("id_list_edit");
+            prefsEditor.remove("name_list_edit");
             prefsEditor.apply();
 
             Intent i = new Intent(EditList.this, ShoppingList.class);

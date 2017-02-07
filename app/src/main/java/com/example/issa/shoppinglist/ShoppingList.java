@@ -103,30 +103,7 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
 
     private void listenListoflist() {
 
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            HashMap<String, String> item;
-            String id_list;
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-
-                item = (HashMap<String, String>) parent.getAdapter().getItem(position);
-                id_list = (item.get("id"));
-
-                // ajout de l'id en SharedPreferences pour les Traitements
-                SharedPreferences myPrefs = getSharedPreferences("preferences", MODE_PRIVATE);
-                SharedPreferences.Editor prefsEditor;
-                prefsEditor = myPrefs.edit();
-                prefsEditor.putString("id_list_edit", id_list);
-                prefsEditor.commit();
-
-                Intent i = new Intent(ShoppingList.this, ProductList.class);
-                startActivity(i);
-
-            }
-
-        });
 
 
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -187,6 +164,31 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
                 alertDialog.show();
 
                 return false;
+            }
+
+        });
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            HashMap<String, String> item;
+            String id_list;
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+                item = (HashMap<String, String>) parent.getAdapter().getItem(position);
+                id_list = (item.get("id"));
+
+                // ajout de l'id en SharedPreferences pour les Traitements
+                SharedPreferences myPrefs = getSharedPreferences("preferences", MODE_PRIVATE);
+                SharedPreferences.Editor prefsEditor;
+                prefsEditor = myPrefs.edit();
+                prefsEditor.putString("id_list_edit", id_list);
+                prefsEditor.commit();
+
+                Intent i = new Intent(ShoppingList.this, ProductList.class);
+                startActivity(i);
+
             }
 
         });

@@ -39,7 +39,7 @@ public class EditList extends Activity implements IHttpRequestListener {
         front_list_name.setText(name_list);
 
         // Récuperation du token en sharedpreferences file
-        SharedPreferences sharedPreferences = getSharedPreferences("preferences", MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("preferences", MODE_PRIVATE);
         token = sharedPreferences.getString("token","");
         id_list = sharedPreferences.getString("id_list_edit", "");
 

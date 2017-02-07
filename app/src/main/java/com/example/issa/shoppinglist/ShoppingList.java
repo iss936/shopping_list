@@ -128,7 +128,7 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
 
                 item = (HashMap<String, String>) parent.getAdapter().getItem(position);
                 id_list = (item.get("id"));
-                name_list_edit = (item.get("name"))
+                name_list_edit = (item.get("name"));
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                         ShoppingList.this);

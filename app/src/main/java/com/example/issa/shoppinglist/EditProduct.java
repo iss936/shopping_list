@@ -19,7 +19,7 @@ public class EditProduct extends Activity implements IHttpRequestListener {
     String token;
     String name;
     String shopping_list_id;
-    int id_product_edit;
+    String id_product_edit;
     float price;
     int quantity;
 

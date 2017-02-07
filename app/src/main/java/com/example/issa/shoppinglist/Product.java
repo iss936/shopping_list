@@ -1,7 +1,7 @@
 package com.example.issa.shoppinglist;
 
 /**
- * Created by Steve on 04/02/2017.
+ * Created by philippe on 04/02/2017.
  */
 
 public class Product {

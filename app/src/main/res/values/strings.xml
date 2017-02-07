@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Shopping List</string>
     <string name="menu">Menu</string>
+    <string name="return_menu">Retour au menu</string>
+    <string name="return_lists">Retour aux listes</string>
     <string name="my_lists">Voir mes listes</string>
 
     <string name="sign_in">Connexion</string>

@@ -29,16 +29,14 @@ public class AddList extends Activity implements IHttpRequestListener {
         SharedPreferences sharedPreferences = getSharedPreferences("preferences", MODE_PRIVATE);
         token = sharedPreferences.getString("token", "");
 
-        final TextInputLayout name_wrapper = (TextInputLayout) findViewById(R.id.name_wrapper);
-
         Button btn_add = (Button) findViewById(R.id.btn_add);
 
         btn_add.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
+            final TextInputLayout name_wrapper = (TextInputLayout) findViewById(R.id.name_wrapper);
             name = name_wrapper.getEditText().getText().toString();
 
-            if (name.length() < 2) {
+            if(name.length() < 2) {
                 name_wrapper.setError("Veuillez saisir un prénom contenant au moins 2 lettres");
             }
             else {

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -19,7 +20,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -88,6 +92,16 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
             }
 
         });
+
+        Button btn_return = (Button) findViewById(R.id.btn_return);
+
+        btn_return.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(ShoppingList.this, MenuActivity.class);
+                startActivity(i);
+            }
+
+        });
     }
 
 
@@ -102,9 +116,6 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
     }
 
     private void listenListoflist() {
-
-
-
 
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             HashMap<String, String> item;
@@ -208,10 +219,19 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
                 String created_date = c.getString("created_date");
                 String completed = c.getString("completed");
 
+                // On modifie le format de la date
+                String inputPattern = "yyyy-MM-dd HH:mm:ss";
+                String outputPattern = "dd/mm/yyyy";
+                SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+                SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+
+                Date date = inputFormat.parse(created_date);
+                String str_date = outputFormat.format(date);
+
                 HashMap<String, String> liste = new HashMap<>();
                 liste.put("id", id);
                 liste.put("name", name);
-                liste.put("created_date", created_date);
+                liste.put("created_date", str_date);
                 liste.put("completed", completed);
 
                 ListesdeCourses.add(liste);
@@ -219,6 +239,8 @@ public class ShoppingList extends Activity implements IHttpRequestListener {
 
         } catch (final JSONException e) {
             Log.e("PPG PARSER", "Json parsing error: " + e.getMessage());
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
         afficherListoflist();
         listenListoflist();

@@ -18,7 +18,8 @@
         <ListView
             android:id="@+id/list"
             android:layout_width="wrap_content"
-            android:layout_height="371dp" />
+            android:layout_height="371dp"
+            android:layout_alignParentTop="true" />
 
     </RelativeLayout>
 
@@ -27,7 +28,12 @@
         android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/add"
-        android:layout_weight="0.5" />
+        android:text="@string/add" />
+
+    <Button
+        android:id="@+id/btn_return"
+        android:text="@string/return_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

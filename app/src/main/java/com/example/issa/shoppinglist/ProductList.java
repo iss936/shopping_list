@@ -88,6 +88,15 @@ public class ProductList extends Activity implements IHttpRequestListener {
             }
         });
 
+        Button btn_return = (Button) findViewById(R.id.btn_return);
+
+        btn_return.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(ProductList.this, ShoppingList.class);
+                startActivity(i);
+            }
+
+        });
     }
 
 

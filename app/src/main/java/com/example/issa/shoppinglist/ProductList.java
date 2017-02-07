@@ -77,8 +77,6 @@ public class ProductList extends Activity implements IHttpRequestListener {
 
 
         String test = "http://appspaces.fr/esgi/shopping_list/product/list.php?token=" + token+"&shopping_list_id="+shopping_list_id;
-        Log.d("requete", test);
-        Log.d("token", "test" + token);
         HttpRequest request = new HttpRequest();
         request.delegate = ProductList.this;
         request.execute(test);
@@ -143,7 +141,7 @@ public class ProductList extends Activity implements IHttpRequestListener {
                                 prefsEditor.putString("id_product_edit", id_product_edit);
                                 prefsEditor.putString("product_name", product_name);
                                 prefsEditor.putString("quantity", quantity);
-                                prefsEditor.putString("price", price);
+                                // prefsEditor.putString("price", price);
                                 prefsEditor.commit();
 
                                 Intent i = new Intent(ProductList.this, EditProduct.class);
@@ -188,13 +186,13 @@ public class ProductList extends Activity implements IHttpRequestListener {
                 String id = c.getString("id");
                 String name = c.getString("name");
                 String quantity = c.getString("quantity");
-                String price = c.getString("price");
+                // String price = c.getString("price");
 
                 HashMap<String, String> liste = new HashMap<>();
                 liste.put("id", id);
                 liste.put("name", name);
                 liste.put("quantity", quantity);
-                liste.put("price", price);
+                // liste.put("price", price);
 
                 ListesdeProduits.add(liste);
             }

@@ -3,6 +3,10 @@
     android:layout_height="match_parent">
 
 
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
 
     <Button
         android:id="@+id/btn_add"
@@ -11,11 +15,6 @@
         android:text="@string/add"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-
-    <ListView
-        android:id="@+id/list"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent" />
 
 
 </RelativeLayout>

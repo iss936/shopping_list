@@ -86,7 +86,7 @@ public class ProductList extends Activity implements IHttpRequestListener {
 
         btn_add.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent i = new Intent(ProductList.this, AddList.class);
+                Intent i = new Intent(ProductList.this, AddProduct.class);
                 startActivity(i);
             }
         });
@@ -126,7 +126,7 @@ public class ProductList extends Activity implements IHttpRequestListener {
 
                 // set dialog message
                 alertDialogBuilder
-                        .setMessage("Voulez vous modifier ou supprimer la liste ?")
+                        .setMessage("Voulez vous modifier ou supprimer l'article ?")
                         .setCancelable(false)
                         .setPositiveButton("Modifier", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
@@ -177,14 +177,14 @@ public class ProductList extends Activity implements IHttpRequestListener {
 
                 String id = c.getString("id");
                 String name = c.getString("name");
-                String created_date = c.getString("created_date");
-                String completed = c.getString("completed");
+                String quantity = c.getString("quantity");
+                String price = c.getString("price");
 
                 HashMap<String, String> liste = new HashMap<>();
                 liste.put("id", id);
                 liste.put("name", name);
-                liste.put("created_date", created_date);
-                liste.put("completed", completed);
+                liste.put("quantity", quantity);
+                liste.put("price", price);
 
                 ListesdeProduits.add(liste);
             }

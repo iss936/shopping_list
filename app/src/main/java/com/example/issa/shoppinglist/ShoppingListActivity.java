@@ -34,8 +34,8 @@ import java.util.Map;
 public class ShoppingListActivity extends Activity implements IHttpRequestListener {
 
     ListView mListView;
-    ArrayList<HashMap<String, String>> ListesdeCourses;
-    String[] entetes = new String[]{"name", "created_date", "id", "completed"};
+    ArrayList<HashMap<String, String>> shoppingListArray;
+    String[] head = new String[]{"name", "created_date", "id", "completed"};
     String token;
 
     private class DeleteService implements IHttpRequestListener {
@@ -71,7 +71,7 @@ public class ShoppingListActivity extends Activity implements IHttpRequestListen
             startActivity(i);
         }
 
-        ListesdeCourses = new ArrayList<>();
+        shoppingListArray = new ArrayList<>();
         mListView = (ListView) findViewById(R.id.list);
 
 
@@ -92,11 +92,11 @@ public class ShoppingListActivity extends Activity implements IHttpRequestListen
     }
 
 
-    private void afficherListoflist() {
+    private void displayListoflist() {
 
         ListAdapter adapter;
-        adapter = new SimpleAdapter(ShoppingListActivity.this, (List<? extends Map<String, ?>>) ListesdeCourses,
-                R.layout.list_item, entetes, new int[]{R.id.name,
+        adapter = new SimpleAdapter(ShoppingListActivity.this, (List<? extends Map<String, ?>>) shoppingListArray,
+                R.layout.list_item, head, new int[]{R.id.name,
                 R.id.created_date, R.id.id, R.id.completed});
 
         mListView.setAdapter(adapter);
@@ -152,7 +152,7 @@ public class ShoppingListActivity extends Activity implements IHttpRequestListen
                             public void onClick(DialogInterface dialog, int id1) {
 
                                 new DeleteService().execute(id_list);
-                                ListesdeCourses.remove(item);
+                                shoppingListArray.remove(item);
                                 dialog.cancel();
                             }
                         })
@@ -240,7 +240,7 @@ public class ShoppingListActivity extends Activity implements IHttpRequestListen
                 liste.put("created_date", str_date);
                 liste.put("completed", completed);
 
-                ListesdeCourses.add(liste);
+                shoppingListArray.add(liste);
             }
 
         } catch (final JSONException e) {
@@ -248,7 +248,7 @@ public class ShoppingListActivity extends Activity implements IHttpRequestListen
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        afficherListoflist();
+        displayListoflist();
         listenListoflist();
     }
 

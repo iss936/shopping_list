@@ -33,7 +33,7 @@ public class ProductListActivity extends Activity implements IHttpRequestListene
 
     ListView mListView;
     ArrayList<HashMap<String, String>> ListesdeProduits;
-    String[] entetes = new String[]{"name", "quantity", "id", "price"};
+    String[] head = new String[]{"name", "quantity", "id", "price"};
     String token;
     String shopping_list_id;
     String shopping_list_name;
@@ -93,10 +93,10 @@ public class ProductListActivity extends Activity implements IHttpRequestListene
     }
 
 
-    private void afficherListoflist() {
+    private void displayListoflist() {
         ListAdapter adapter;
         adapter = new SimpleAdapter(ProductListActivity.this, (List<? extends Map<String, ?>>) ListesdeProduits,
-                R.layout.list_item, entetes, new int[]{R.id.name,
+                R.layout.list_item, head, new int[]{R.id.name,
                 R.id.created_date, R.id.id, R.id.completed});
 
         mListView.setAdapter(adapter);
@@ -200,7 +200,7 @@ public class ProductListActivity extends Activity implements IHttpRequestListene
         } catch (final JSONException e) {
             Log.e("PPG PARSER", "Json parsing error: " + e.getMessage());
         }
-        afficherListoflist();
+        displayListoflist();
         listenListoflist();
     }
 

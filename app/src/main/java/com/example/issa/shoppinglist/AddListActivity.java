@@ -1,15 +1,11 @@
 package com.example.issa.shoppinglist;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
-import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -23,7 +19,7 @@ import java.io.UnsupportedEncodingException;
  * Created by philippe on 05/02/2017.
  */
 
-public class AddList extends Activity implements IHttpRequestListener {
+public class AddListActivity extends Activity implements IHttpRequestListener {
     String token;
     String name;
     String complete;
@@ -60,7 +56,7 @@ public class AddList extends Activity implements IHttpRequestListener {
             }
             else {
                 HttpRequest request = new HttpRequest();
-                request.delegate = AddList.this;
+                request.delegate = AddListActivity.this;
                 String encoded_name = "";
                 try {
                     encoded_name = java.net.URLEncoder.encode(name, "utf-8");
@@ -76,7 +72,7 @@ public class AddList extends Activity implements IHttpRequestListener {
     @Override
     public void onSuccess(JSONObject j) {
         Toast.makeText(getApplicationContext(), "La liste '" + name + "' a été créée !", Toast.LENGTH_LONG).show();
-        Intent i = new Intent(AddList.this, ShoppingList.class);
+        Intent i = new Intent(AddListActivity.this, ShoppingListActivity.class);
         startActivity(i);
     }
 
@@ -87,7 +83,7 @@ public class AddList extends Activity implements IHttpRequestListener {
 
     @Override
     public void onBackPressed(){
-        Intent i = new Intent(AddList.this, ShoppingList.class);
+        Intent i = new Intent(AddListActivity.this, ShoppingListActivity.class);
         startActivity(i);
     }
 }

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -21,7 +20,7 @@ import org.json.JSONObject;
  * Created by philippe on 05/02/2017.
  */
 
-public class EditList extends Activity implements IHttpRequestListener {
+public class EditListActivity extends Activity implements IHttpRequestListener {
     String token;
     String name;
     String complete;
@@ -72,7 +71,7 @@ public class EditList extends Activity implements IHttpRequestListener {
                     name_wrapper.setError("Veuillez saisir un prénom contenant au moins 2 lettres");
                 } else {
                     HttpRequest request = new HttpRequest();
-                    request.delegate = EditList.this;
+                    request.delegate = EditListActivity.this;
                     String encoded_name = "";
                     try {
                         encoded_name = URLEncoder.encode(name, "utf-8");
@@ -95,7 +94,7 @@ public class EditList extends Activity implements IHttpRequestListener {
 
         Toast.makeText(getApplicationContext(), "La liste "+ name + " a été modifiée!", Toast.LENGTH_LONG).show();
 
-        Intent i = new Intent(EditList.this, ShoppingList.class);
+        Intent i = new Intent(EditListActivity.this, ShoppingListActivity.class);
         startActivity(i);
     }
 
@@ -112,7 +111,7 @@ public class EditList extends Activity implements IHttpRequestListener {
         token = myPrefs.getString("token", "");
 
         if(token.equals("")) {
-            Intent i = new Intent(EditList.this, LoginActivity.class);
+            Intent i = new Intent(EditListActivity.this, LoginActivity.class);
             startActivity(i);
         }
         else {
@@ -121,7 +120,7 @@ public class EditList extends Activity implements IHttpRequestListener {
             prefsEditor.remove("name_list_edit");
             prefsEditor.apply();
 
-            Intent i = new Intent(EditList.this, ShoppingList.class);
+            Intent i = new Intent(EditListActivity.this, ShoppingListActivity.class);
             startActivity(i);
         }
     }

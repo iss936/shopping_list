@@ -19,7 +19,7 @@ import java.net.URLEncoder;
  * Created by philippe on 07/02/2017.
  */
 
-public class AddProduct extends Activity implements IHttpRequestListener {
+public class AddProductActivity extends Activity implements IHttpRequestListener {
     String token;
     String name;
     String quantity;
@@ -54,7 +54,7 @@ public class AddProduct extends Activity implements IHttpRequestListener {
                     name_wrapper.setError("Veuillez saisir un mot contenant au moins 2 lettres");
                 } else {
                     HttpRequest request = new HttpRequest();
-                    request.delegate = AddProduct.this;
+                    request.delegate = AddProductActivity.this;
                     String encoded_name = "";
                     try {
                         encoded_name = URLEncoder.encode(name, "utf-8");
@@ -70,7 +70,7 @@ public class AddProduct extends Activity implements IHttpRequestListener {
     @Override
     public void onSuccess(JSONObject j) {
         Toast.makeText(getApplicationContext(), "Le produit "+ name + " a été ajouté !", Toast.LENGTH_LONG).show();
-        Intent i = new Intent(AddProduct.this, ProductList.class);
+        Intent i = new Intent(AddProductActivity.this, ProductListActivity.class);
         startActivity(i);
     }
 
@@ -82,7 +82,7 @@ public class AddProduct extends Activity implements IHttpRequestListener {
     @Override
     public void onBackPressed(){
 
-        Intent i = new Intent(AddProduct.this, ProductList.class);
+        Intent i = new Intent(AddProductActivity.this, ProductListActivity.class);
         startActivity(i);
     }
 

@@ -19,18 +19,6 @@ public class SignUpActivity extends Activity implements IHttpRequestListener {
     String token;
 
     @Override
-    public void onBackPressed() {
-        //recuperation du token en sharedpreferences file
-        SharedPreferences sharedPreferences = getSharedPreferences("preferences", MODE_PRIVATE);
-        token = sharedPreferences.getString("token", "");
-
-        if(!token.equals("")) {
-            Intent i = new Intent(SignUpActivity.this, ShoppingList.class);
-            startActivity(i);
-        }
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);

@@ -18,12 +18,12 @@
         </activity>
         <activity android:name=".MenuActivity"></activity>
         <activity android:name=".SignUpActivity"></activity>
-        <activity android:name=".ShoppingList"></activity>
-        <activity android:name=".ProductList"></activity>
-        <activity android:name=".AddList"></activity>
-        <activity android:name=".AddProduct"></activity>
-        <activity android:name=".EditList"></activity>
-        <activity android:name=".EditProduct"></activity>
+        <activity android:name=".ShoppingListActivity"></activity>
+        <activity android:name=".ProductListActivity"></activity>
+        <activity android:name=".AddListActivity"></activity>
+        <activity android:name=".AddProductActivity"></activity>
+        <activity android:name=".EditListActivity"></activity>
+        <activity android:name=".EditProductActivity"></activity>
         <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
         <meta-data

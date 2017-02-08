@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 
-import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
@@ -21,7 +20,7 @@ import java.net.URLEncoder;
  * Created by Rshown on 07/02/2017.
  */
 
-public class EditProduct extends Activity implements IHttpRequestListener {
+public class EditProductActivity extends Activity implements IHttpRequestListener {
     String token;
     String name;
     String shopping_list_id;
@@ -73,7 +72,7 @@ public class EditProduct extends Activity implements IHttpRequestListener {
                     name_wrapper.setError("Veuillez saisir un mot contenant au moins 2 lettres");
                 } else {
                     HttpRequest request = new HttpRequest();
-                    request.delegate = EditProduct.this;
+                    request.delegate = EditProductActivity.this;
                     String encoded_name = "";
                     try {
                         encoded_name = URLEncoder.encode(name, "utf-8");
@@ -96,7 +95,7 @@ public class EditProduct extends Activity implements IHttpRequestListener {
         prefsEditor.remove("product_name");
         prefsEditor.apply();
 
-        Intent i = new Intent(EditProduct.this, ProductList.class);
+        Intent i = new Intent(EditProductActivity.this, ProductListActivity.class);
         startActivity(i);
     }
 
@@ -117,7 +116,7 @@ public class EditProduct extends Activity implements IHttpRequestListener {
         prefsEditor.remove("price");
         prefsEditor.apply();
 
-        Intent i = new Intent(EditProduct.this, ProductList.class);
+        Intent i = new Intent(EditProductActivity.this, ProductListActivity.class);
         startActivity(i);
     }
 

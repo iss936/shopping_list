@@ -65,7 +65,7 @@ public class MenuActivity  extends Activity implements IHttpRequestListener {
         btn_add_list.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                Intent i = new Intent(MenuActivity.this, AddList.class);
+                Intent i = new Intent(MenuActivity.this, AddListActivity.class);
                 startActivity(i);
             }
         });
@@ -73,7 +73,7 @@ public class MenuActivity  extends Activity implements IHttpRequestListener {
         btn_lists.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                Intent i = new Intent(MenuActivity.this, ShoppingList.class);
+                Intent i = new Intent(MenuActivity.this, ShoppingListActivity.class);
                 startActivity(i);
             }
         });
